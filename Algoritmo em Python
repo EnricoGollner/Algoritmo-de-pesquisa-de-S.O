@@ -1,0 +1,39 @@
+from time import localtime
+from datetime import date
+
+
+def pesquisa():
+    data = date.today()
+    dia = data.strftime('%d/%m/%Y')
+    ent = 0  # Contador de entrevistados
+    android = 0
+    ios = 0
+    soma_idade = 0
+    while localtime().tm_hour < 18:  # Até as 18 horas, realiza as entrevistas
+        print('\nOlá, entrevistado! Vamos às perguntas:')
+        soma_idade += int(input('Digite aqui a sua idade: '))
+        print('Sendo:\n1-Caso for Android\n2-Caso for iOS')
+        s_o = int(input('Digite a opção que condiz com o sistema operacional '
+                        'utilizado em seu dispositivo móvel: '))
+        while s_o != 1 and s_o != 2:
+            s_o = int(input('[ERRO!] Opção inválida! Sendo:\n1-Caso for Android\n2-Caso for iOS'
+                            '\nDigite uma opção válida que condiz com o sistema operacional '
+                            'utilizado em seu dispositivo móvel: '))
+        if s_o == 1:
+            android += 1
+        if s_o == 2:
+            ios += 1
+        ent += 1
+        print('Obrigado pela sua participação!')
+        idades = soma_idade / ent
+        if localtime().tm_hour == 18:  # As 18h, a entrevista encerra e emite um relatório
+            print('\nEntrevista encerrada!')
+            relatorio = 'No dia {}:\nO total de entrevistados foi de {} pessoas.\nSendo, ' \
+                        'o n° de usuários do sistema operacional Android, de {} pessoas' \
+                        '\ne o n° de usuários do iOS, {} pessoas.' \
+                        '\nA idade média dos entervistados ' \
+                        'foi de: {:.1f} anos'.format(dia, ent, android, ios, idades)
+            print(relatorio)
+
+
+pesquisa()  # Para que a pesquisa se repita no dia seguinte, basta utilizar o agendador de tarefas
